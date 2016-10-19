@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Pets</title>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'pets/css/styles.css' %}"media="screen" title="no title"  charset="utf-8">
+    </head>
+    <body>
+        <h1>Pets</h1>
+        {% if messages %}
+            <ul class='messages'>
+                {% for message in messages %}
+                    <li {%if message.tags %}class='{{message.tags}}'{% endif %}>{{message}}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <table>
+            <tr class='row1'>
+                <th>Pet Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+            {% for pet in pets %}
+                <tr class="{% cycle 'row2' 'row1' %}">
+                    <th>{{pet.name}}</th>
+                    <th>{{pet.description}}</th>
+                    <th>{{pet.price}}</th>
+                    <th><a href="{% url 'pets:show' id=pet.id %}">Show</a> <a href="{% url 'pets:edit' id=pet.id %}">Edit</a> <a href="/pets/destroy/{{pet.id}}"><button type="button" name="button">Delete</button></a></th>
+                </tr>
+            {% endfor %}
+        </table>
+        <a href="/pets/new">Add a new pet!</a>
+    </body>
+</html>

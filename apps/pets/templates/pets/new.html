@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>New Pet</title>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'pets/css/styles.css' %}"media="screen" title="no title"  charset="utf-8">
+    </head>
+    <body>
+        <h1>Add a new pet!</h1>
+        <form class="" action="{% url 'pets:create' %}" method="post">
+            {% csrf_token %}
+            <p>Name: </p>
+            <input type="text" name="name" value="">
+            <p>Description: </p>
+            <input type="text" name="description" value="">
+            <p>Price: </p>
+            <input type="text" name="price" value="">
+            <input type="submit" name="submit" value="submit">
+        </form>
+        {% if messages %}
+            <ul class='messages'>
+                {% for message in messages %}
+                    <li {%if message.tags %}class='{{message.tags}}'{% endif %}>{{message}}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <a href="{% url 'pets:index' %}">Go Back!</a>
+    </body>
+</html>
